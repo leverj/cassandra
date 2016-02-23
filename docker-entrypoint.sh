@@ -59,5 +59,5 @@ if [ "$1" = 'cassandra' ]; then
 		fi
 	done
 fi
-
+service cron restart
 exec "$@"

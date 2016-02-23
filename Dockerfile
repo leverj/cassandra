@@ -24,10 +24,11 @@ RUN  groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassan
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
-
+COPY snapshot.sh /etc/cron.hourly/
 RUN mkdir -p /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chown -R cassandra:cassandra /var/lib/cassandra "$CASSANDRA_CONFIG" \
-	&& chmod 777 /var/lib/cassandra "$CASSANDRA_CONFIG"
+	&& chmod 777 /var/lib/cassandra "$CASSANDRA_CONFIG" \
+	&& chmod +x /etc/cron.hourly/snapshot.sh
 
 VOLUME /var/lib/cassandra
 
