@@ -28,7 +28,7 @@ COPY snapshot /etc/cron.hourly/
 RUN mkdir -p /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chown -R cassandra:cassandra /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chmod 777 /var/lib/cassandra "$CASSANDRA_CONFIG" \
-	&& chmod +x /etc/cron.hourly/snapshot.sh
+	&& chmod +x /etc/cron.hourly/snapshot
 
 VOLUME /var/lib/cassandra
 
