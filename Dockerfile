@@ -7,7 +7,7 @@ ENV CASSANDRA_CONFIG /etc/cassandra
 # explicitly set user/group IDs
 RUN  groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra \
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget cron \
+    && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget cron curl \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture)" \
     && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture).asc" \
     && gpg --verify /usr/local/bin/gosu.asc \
