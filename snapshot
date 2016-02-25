@@ -1,2 +1,14 @@
 #!/bin/bash
-nodetool -h localhost -p 7199 snapshot coinpit
+LABEL="$(date +MON%m_DAY%d_HR%H)_$CASSANDRA_BROADCAST_ADDRESS"
+BACKUP_DIR="/var/lib/cassandra/backup"
+mkdir -p $BACKUP_DIR/$LABEL
+TABLES=$(cqlsh -e "use $KEYSPACE; describe tables")
+CQLSH="CONSISTENCY QUORUM;"
+for TABLE in $TABLES; do
+  CQLSH="$CQLSH copy $KEYSPACE.$TABLE to '$BACKUP_DIR/$LABEL/${TABLE}.csv';"
+done
+cqlsh -e "$CQLSH"
+cd $BACKUP_DIR
+tar cvzf $LABEL.tar.gz $LABEL
+rm -rf $LABEL
+curl -u $USER_PASS -T $LABEL.tar.gz $BACKUP_URL/webdav/ -H 'content-type:application/octet-stream'
