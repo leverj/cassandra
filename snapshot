@@ -11,4 +11,4 @@ cqlsh -e "$CQLSH"
 cd $BACKUP_DIR
 tar cvzf $LABEL.tar.gz $LABEL
 rm -rf $LABEL
-curl -u $USER_PASS -T $LABEL.tar.gz $BACKUP_URL/webdav/ -H 'content-type:application/octet-stream'
+curl -u $BACKUP_USERNAME:$BACKUP_USERPASS -T $LABEL.tar.gz $BACKUP_URL/webdav/ -H 'content-type:application/octet-stream'
