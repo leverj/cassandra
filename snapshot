@@ -1,14 +1,6 @@
 #!/bin/bash
-LABEL="$(date +MON%m_DAY%d_HR%H)_$CASSANDRA_BROADCAST_ADDRESS"
-BACKUP_DIR="/var/lib/cassandra/backup"
-mkdir -p $BACKUP_DIR/$LABEL
-TABLES=$(cqlsh -e "use $KEYSPACE; describe tables")
-CQLSH="CONSISTENCY QUORUM;"
-for TABLE in $TABLES; do
-  CQLSH="$CQLSH copy $KEYSPACE.$TABLE to '$BACKUP_DIR/$LABEL/${TABLE}.csv';"
-done
-cqlsh -e "$CQLSH"
-cd $BACKUP_DIR
-tar cvzf $LABEL.tar.gz $LABEL
-rm -rf $LABEL
-curl -u $BACKUP_USERNAME:$BACKUP_USERPASS -T $LABEL.tar.gz $BACKUP_URL/webdav/ -H 'content-type:application/octet-stream'
+(
+    source /root/.environment
+    LABEL="$(date +MON%m_DAY%d_HR%H)"
+    nodetool -h localhost snapshot $KEYSPACE -t $LABEL
+)>> /var/lib/cassandra/backup.log 2>&1
