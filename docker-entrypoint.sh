@@ -59,9 +59,5 @@ if [ "$1" = 'cassandra' ]; then
 		fi
 	done
 fi
-if [ "$BACKUP_ENABLED" = "1" ]; then
-	service cron restart
-else
-	service cron stop
-fi
+service cron restart
 exec "$@"
