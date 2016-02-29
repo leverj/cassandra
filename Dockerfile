@@ -21,7 +21,6 @@ RUN  groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassan
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge -y --auto-remove wget
 
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 COPY snapshot /etc/cron.hourly/
