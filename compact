@@ -1,0 +1,5 @@
+#!/bin/bash
+(
+    source /root/.environment
+    nodetool compact $KEYSPACE
+)>> /var/lib/cassandra/compact.log 2>&1
