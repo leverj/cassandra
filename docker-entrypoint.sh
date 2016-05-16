@@ -36,6 +36,9 @@ if [ "$1" = 'cassandra' ]; then
 
 	sed -ri 's/(- seeds:) "127.0.0.1"/\1 "'"$CASSANDRA_SEEDS"'"/' "$CASSANDRA_CONFIG/cassandra.yaml"
 
+	: ${CASSANDRA_WRITE_TIMEOUT:="2000"}
+	sed -ri 's/(write_request_timeout_in_ms:) 2000/\1 '$CASSANDRA_WRITE_TIMEOUT'/' "$CASSANDRA_CONFIG/cassandra.yaml"
+
 	for yaml in \
 		broadcast_address \
 		broadcast_rpc_address \
