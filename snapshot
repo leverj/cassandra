@@ -4,3 +4,4 @@
     LABEL="$(date +MON%m_DAY%d_HR%H)"
     nodetool -h localhost snapshot $KEYSPACE -t $LABEL
 )>> /var/lib/cassandra/backup.log 2>&1
+
