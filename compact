@@ -2,4 +2,5 @@
 (
     source /root/.environment
     nodetool compact $KEYSPACE
+    nodetool garbagecollect -- $KEYSPACE
 )>> /var/lib/cassandra/compact.log 2>&1

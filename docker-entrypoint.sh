@@ -48,6 +48,8 @@ if [ "$1" = 'cassandra' ]; then
 		num_tokens \
 		rpc_address \
 		start_rpc \
+		batch_size_warn_threshold_in_kb \
+		batch_size_fail_threshold_in_kb \
 	; do
 		var="CASSANDRA_${yaml^^}"
 		val="${!var}"
