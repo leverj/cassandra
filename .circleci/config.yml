@@ -11,8 +11,8 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - run: docker info
-      - run: docker build -t leverj/cassandra:3.11.2 .
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker push leverj/cassandra
-      - run: docker logout
+#      - run: docker info
+#      - run: docker build -t leverj/cassandra:3.11.2 .
+#      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+#      - run: docker push leverj/cassandra
+#      - run: docker logout
