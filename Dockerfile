@@ -54,7 +54,7 @@ RUN set -ex; \
 	rm -rf "$GNUPGHOME"; \
 	apt-key list
 
-ENV CASSANDRA_VERSION 3.11.4
+ENV CASSANDRA_VERSION 3.11.5
 
 RUN set -ex; \
 	\
@@ -150,13 +150,11 @@ RUN set -ex; \
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
-COPY snapshot /etc/cron.hourly/
 COPY compact /etc/cron.daily/
 
 RUN mkdir -p /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chown -R cassandra:cassandra /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chmod 777 /var/lib/cassandra "$CASSANDRA_CONFIG" \
-	&& chmod +x /etc/cron.hourly/snapshot \
   && chmod +x /etc/cron.daily/compact
 
 VOLUME /var/lib/cassandra
